@@ -1,0 +1,21 @@
+﻿@model LittleDwarfsAgencyMVC.ViewModels.RandomInvoiceViewModel
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Invoice.Invoice1</h2>
+
+@if (Model.Timesheets.Count == 0)
+{
+    <text>There are no timesheets.</text>
+}
+else
+{
+    <ul>
+        @foreach (var timesheet in Model.Timesheets)
+        {
+            <li>@timesheet.Timesheet1</li>
+        }
+    </ul>
+}

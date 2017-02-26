@@ -1,0 +1,388 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LittleDwarfAgencyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="InvoiceLists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Invoice" Type="int" Nullable="false" />
+          <Property Name="Weekending" Type="date" Nullable="false" />
+          <Property Name="Timesheet" Type="int" Nullable="false" />
+          <Property Name="HoursWorked" Type="float" Nullable="false" />
+          <Property Name="Rate" Type="float" Nullable="false" />
+          <Property Name="Cost" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Invoice" Type="int" Nullable="false" />
+          <Property Name="AccountRef" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="InvoiceDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Timesheets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Timesheet" Type="int" Nullable="false" />
+          <Property Name="Agency" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CareWorker" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkPeriods">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Timesheet" Type="int" Nullable="false" />
+          <Property Name="PeriodDate" Type="date" Nullable="false" />
+          <Property Name="AllocHours" Type="float" Nullable="false" />
+          <Property Name="TimeIn" Type="time" Precision="7" Nullable="false" />
+          <Property Name="TimeExit" Type="time" Precision="7" Nullable="false" />
+          <Property Name="ActualService" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LittleDwarfAgency.dbo.DailyCharges' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="DailyCharges">
+          <Key>
+            <PropertyRef Name="Limit" />
+          </Key>
+          <Property Name="PeriodDate" Type="date" />
+          <Property Name="DailyHours" Type="float" />
+          <Property Name="AgencyCharge" Type="float" />
+          <Property Name="Limit" Type="numeric" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="LocalAuthCharge" Type="float" />
+          <Property Name="ClientChargeNormalHours" Type="float" />
+          <Property Name="ClientChargeExtraHours" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'LittleDwarfAgency.dbo.DailyRates' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DailyRates">
+          <Property Name="PeriodDate" Type="date" />
+          <Property Name="DailyHours" Type="float" />
+          <Property Name="AgencyCharge" Type="float" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LittleDwarfAgency.dbo.PeriodRates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PeriodRates">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ActualService" />
+            <PropertyRef Name="Invoice" />
+            <PropertyRef Name="Rate" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Timesheet" Type="int" />
+          <Property Name="PeriodDate" Type="date" />
+          <Property Name="AllocHours" Type="float" />
+          <Property Name="TimeIn" Type="time" Precision="7" />
+          <Property Name="TimeExit" Type="time" Precision="7" />
+          <Property Name="ActualService" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Invoice" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LittleDwarfAgency.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_InvoiceLists_Invoices' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_InvoiceLists_Invoices" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_WorkPeriods_Timesheets' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_WorkPeriods_Timesheets" />-->
+        <Function Name="ClearAllTablesProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ClearInvoiceListsTableProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ClearInvoicesTableProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ClearTimesheetsTableProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ClearWorkPeriodsTableProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="MakeAllTablesProcedure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="LittleDwarfAgencyModelStoreContainer">
+          <EntitySet Name="InvoiceLists" EntityType="Self.InvoiceLists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timesheets" EntityType="Self.Timesheets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkPeriods" EntityType="Self.WorkPeriods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DailyCharges" EntityType="Self.DailyCharges" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DailyCharges].[PeriodDate] AS [PeriodDate], 
+    [DailyCharges].[DailyHours] AS [DailyHours], 
+    [DailyCharges].[AgencyCharge] AS [AgencyCharge], 
+    [DailyCharges].[Limit] AS [Limit], 
+    [DailyCharges].[LocalAuthCharge] AS [LocalAuthCharge], 
+    [DailyCharges].[ClientChargeNormalHours] AS [ClientChargeNormalHours], 
+    [DailyCharges].[ClientChargeExtraHours] AS [ClientChargeExtraHours]
+    FROM [dbo].[DailyCharges] AS [DailyCharges]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PeriodRates" EntityType="Self.PeriodRates" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [PeriodRates].[Id] AS [Id], 
+    [PeriodRates].[Timesheet] AS [Timesheet], 
+    [PeriodRates].[PeriodDate] AS [PeriodDate], 
+    [PeriodRates].[AllocHours] AS [AllocHours], 
+    [PeriodRates].[TimeIn] AS [TimeIn], 
+    [PeriodRates].[TimeExit] AS [TimeExit], 
+    [PeriodRates].[ActualService] AS [ActualService], 
+    [PeriodRates].[Invoice] AS [Invoice], 
+    [PeriodRates].[Rate] AS [Rate]
+    FROM [dbo].[PeriodRates] AS [PeriodRates]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LittleDwarfAgencyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="InvoiceList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Invoice" Type="Int32" Nullable="false" />
+          <Property Name="Weekending" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Timesheet" Type="Int32" Nullable="false" />
+          <Property Name="HoursWorked" Type="Double" Nullable="false" />
+          <Property Name="Rate" Type="Double" Nullable="false" />
+          <Property Name="Cost" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Invoice1" Type="Int32" Nullable="false" />
+          <Property Name="AccountRef" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Timesheet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Timesheet1" Type="Int32" Nullable="false" />
+          <Property Name="Agency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CareWorker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkPeriod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Timesheet" Type="Int32" Nullable="false" />
+          <Property Name="PeriodDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AllocHours" Type="Double" Nullable="false" />
+          <Property Name="TimeIn" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TimeExit" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="ActualService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DailyCharge">
+          <Key>
+            <PropertyRef Name="Limit" />
+          </Key>
+          <Property Name="PeriodDate" Type="DateTime" Precision="0" />
+          <Property Name="DailyHours" Type="Double" />
+          <Property Name="AgencyCharge" Type="Double" />
+          <Property Name="Limit" Type="Decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="LocalAuthCharge" Type="Double" />
+          <Property Name="ClientChargeNormalHours" Type="Double" />
+          <Property Name="ClientChargeExtraHours" Type="Double" />
+        </EntityType>
+        <EntityType Name="PeriodRate">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ActualService" />
+            <PropertyRef Name="Invoice" />
+            <PropertyRef Name="Rate" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Timesheet" Type="Int32" />
+          <Property Name="PeriodDate" Type="DateTime" Precision="0" />
+          <Property Name="AllocHours" Type="Double" />
+          <Property Name="TimeIn" Type="Time" Precision="7" />
+          <Property Name="TimeExit" Type="Time" Precision="7" />
+          <Property Name="ActualService" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Invoice" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="LittleDwarfAgencyEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="InvoiceLists" EntityType="Self.InvoiceList" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="Timesheets" EntityType="Self.Timesheet" />
+          <EntitySet Name="WorkPeriods" EntityType="Self.WorkPeriod" />
+          <EntitySet Name="DailyCharges" EntityType="Self.DailyCharge" />
+          <EntitySet Name="PeriodRates" EntityType="Self.PeriodRate" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+          <FunctionImport Name="ClearAllTablesProcedure" />
+          <FunctionImport Name="ClearInvoiceListsTableProcedure" />
+          <FunctionImport Name="ClearInvoicesTableProcedure" />
+          <FunctionImport Name="ClearTimesheetsTableProcedure" />
+          <FunctionImport Name="ClearWorkPeriodsTableProcedure" />
+          <FunctionImport Name="MakeAllTablesProcedure" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LittleDwarfAgencyModelStoreContainer" CdmEntityContainer="LittleDwarfAgencyEntities1">
+          <EntitySetMapping Name="InvoiceLists">
+            <EntityTypeMapping TypeName="LittleDwarfAgencyModel.InvoiceList">
+              <MappingFragment StoreEntitySet="InvoiceLists">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+                <ScalarProperty Name="Weekending" ColumnName="Weekending" />
+                <ScalarProperty Name="Timesheet" ColumnName="Timesheet" />
+                <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="LittleDwarfAgencyModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoices">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Invoice1" ColumnName="Invoice" />
+                <ScalarProperty Name="AccountRef" ColumnName="AccountRef" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timesheets">
+            <EntityTypeMapping TypeName="LittleDwarfAgencyModel.Timesheet">
+              <MappingFragment StoreEntitySet="Timesheets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Timesheet1" ColumnName="Timesheet" />
+                <ScalarProperty Name="Agency" ColumnName="Agency" />
+                <ScalarProperty Name="CareWorker" ColumnName="CareWorker" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkPeriods">
+            <EntityTypeMapping TypeName="LittleDwarfAgencyModel.WorkPeriod">
+              <MappingFragment StoreEntitySet="WorkPeriods">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Timesheet" ColumnName="Timesheet" />
+                <ScalarProperty Name="PeriodDate" ColumnName="PeriodDate" />
+                <ScalarProperty Name="AllocHours" ColumnName="AllocHours" />
+                <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
+                <ScalarProperty Name="TimeExit" ColumnName="TimeExit" />
+                <ScalarProperty Name="ActualService" ColumnName="ActualService" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyCharges">
+            <EntityTypeMapping TypeName="LittleDwarfAgencyModel.DailyCharge">
+              <MappingFragment StoreEntitySet="DailyCharges">
+                <ScalarProperty Name="PeriodDate" ColumnName="PeriodDate" />
+                <ScalarProperty Name="DailyHours" ColumnName="DailyHours" />
+                <ScalarProperty Name="AgencyCharge" ColumnName="AgencyCharge" />
+                <ScalarProperty Name="Limit" ColumnName="Limit" />
+                <ScalarProperty Name="LocalAuthCharge" ColumnName="LocalAuthCharge" />
+                <ScalarProperty Name="ClientChargeNormalHours" ColumnName="ClientChargeNormalHours" />
+                <ScalarProperty Name="ClientChargeExtraHours" ColumnName="ClientChargeExtraHours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PeriodRates">
+            <EntityTypeMapping TypeName="LittleDwarfAgencyModel.PeriodRate">
+              <MappingFragment StoreEntitySet="PeriodRates">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Timesheet" ColumnName="Timesheet" />
+                <ScalarProperty Name="PeriodDate" ColumnName="PeriodDate" />
+                <ScalarProperty Name="AllocHours" ColumnName="AllocHours" />
+                <ScalarProperty Name="TimeIn" ColumnName="TimeIn" />
+                <ScalarProperty Name="TimeExit" ColumnName="TimeExit" />
+                <ScalarProperty Name="ActualService" ColumnName="ActualService" />
+                <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="LittleDwarfAgencyModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ClearAllTablesProcedure" FunctionName="LittleDwarfAgencyModel.Store.ClearAllTablesProcedure" />
+          <FunctionImportMapping FunctionImportName="ClearInvoiceListsTableProcedure" FunctionName="LittleDwarfAgencyModel.Store.ClearInvoiceListsTableProcedure" />
+          <FunctionImportMapping FunctionImportName="ClearInvoicesTableProcedure" FunctionName="LittleDwarfAgencyModel.Store.ClearInvoicesTableProcedure" />
+          <FunctionImportMapping FunctionImportName="ClearTimesheetsTableProcedure" FunctionName="LittleDwarfAgencyModel.Store.ClearTimesheetsTableProcedure" />
+          <FunctionImportMapping FunctionImportName="ClearWorkPeriodsTableProcedure" FunctionName="LittleDwarfAgencyModel.Store.ClearWorkPeriodsTableProcedure" />
+          <FunctionImportMapping FunctionImportName="MakeAllTablesProcedure" FunctionName="LittleDwarfAgencyModel.Store.MakeAllTablesProcedure" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

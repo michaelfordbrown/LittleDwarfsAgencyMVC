@@ -29,5 +29,7 @@ namespace LittleDwarfsAgencyMVC.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<LittleDwarfsAgencyMVC.Invoice> Invoices { get; set; }
     }
 }

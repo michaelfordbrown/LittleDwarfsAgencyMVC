@@ -1,0 +1,49 @@
+﻿@model IEnumerable<LittleDwarfsAgencyMVC.Invoice>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Invoice Handler</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*Html.DisplayNameFor(model => model.Invoice1)*@
+            Invoice
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.AccountRef)*@
+            Account Reference
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.InvoiceDate)*@
+            Invoice Date
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Invoice1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountRef)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InvoiceDate).ToString().Substring(0,10)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
