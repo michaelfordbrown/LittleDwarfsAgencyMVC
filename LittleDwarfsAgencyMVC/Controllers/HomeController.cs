@@ -15,14 +15,14 @@ namespace LittleDwarfsAgencyMVC.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Little Dwarfs Care Agency";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Mike Brown.";
 
             return View();
         }
