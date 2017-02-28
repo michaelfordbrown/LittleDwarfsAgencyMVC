@@ -31,5 +31,7 @@ namespace LittleDwarfsAgencyMVC.Models
         }
 
         public System.Data.Entity.DbSet<LittleDwarfsAgencyMVC.Invoice> Invoices { get; set; }
+
+        public System.Data.Entity.DbSet<LittleDwarfsAgencyMVC.InvoiceList> InvoiceLists { get; set; }
     }
 }

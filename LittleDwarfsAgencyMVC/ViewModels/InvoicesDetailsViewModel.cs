@@ -5,9 +5,9 @@ using System.Web;
 
 namespace LittleDwarfsAgencyMVC.ViewModels
 {
-    public class RandomInvoiceViewModel
+    public class InvoicesDetailsViewModel
     {
         public Invoice Invoice { get; set; }
-        public List<Timesheet> Timesheets { get; set; }
+        public List<InvoiceList> InvoiceLists { get; set; }
     }
 }

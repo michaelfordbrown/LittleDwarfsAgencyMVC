@@ -1,0 +1,67 @@
+﻿@model LittleDwarfsAgencyMVC.InvoiceList
+
+@{
+    ViewBag.Title = "InvoiceLists";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Time Sheet Summary</h2>
+
+<div>
+    <h4>Time Sheet Summary</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Invoice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Weekending)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Weekending).ToString().Substring(0,10)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Timesheet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Timesheet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoursWorked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoursWorked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit Timesheet Summary", "EditTimeSheetSummary", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

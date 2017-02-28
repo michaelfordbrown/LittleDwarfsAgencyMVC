@@ -1,4 +1,4 @@
-﻿@model LittleDwarfsAgencyMVC.Invoice
+﻿@model LittleDwarfsAgencyMVC.ViewModels.InvoicesDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -12,32 +12,88 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Invoice1)
+            @*Html.DisplayNameFor(model => model.Invoice1)*@
+            Invoice
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Invoice1)
+            @Html.DisplayFor(model => model.Invoice.Invoice1)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AccountRef)
+            @*Html.DisplayNameFor(model => model.AccountRef)*@
+            Account Reference
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AccountRef)
+            @Html.DisplayFor(model => model.Invoice.AccountRef)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.InvoiceDate)
+            @*Html.DisplayNameFor(model => model.InvoiceDate)*@
+            Invoice Date
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.InvoiceDate)
+            @Html.DisplayFor(model => model.Invoice.InvoiceDate)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Invoice.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+<p>
+    @Html.ActionLink("Create New Time Sheet Summary", "CreateTimesheetSummary", new { invoice = Model.Invoice.Invoice1 })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Week Ending
+        </th>
+        <th>
+            Time Sheet
+        </th>
+        <th>
+            Hours Worked
+        </th>        
+        <th>
+            Rate
+        </th>        
+        <th>
+            Cost
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.InvoiceLists)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weekending).ToString().Substring(0,10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Timesheet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoursWorked)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.ActionLink("Edit Timesheet Summary", "EditTimesheetsummary", new { id = item.Id }) |
+                @Html.ActionLink("Time Sheet Summary", "TimesheetSummary", new { id = item.Id }) |
+                @Html.ActionLink("Delete Sheet Summary", "DeleteTimesheetSummary", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
