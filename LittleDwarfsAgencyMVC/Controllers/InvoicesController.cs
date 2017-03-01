@@ -6,19 +6,27 @@ using System.Web.Mvc;
 using LittleDwarfsAgencyMVC.ViewModels;
 using System.Data;
 using System.Data.Entity;
-
+using LittleDwarfsAgencyMVC.Models;
 
 namespace LittleDwarfsAgencyMVC.Controllers
 {
     public class InvoicesController : Controller
     {
 
+        private IInvoiceRepository invoiceRepo;
+
+        public InvoicesController()
+        {
+            this.invoiceRepo = new EFInvoiceRepository();
+        }
+
         public ActionResult Index()
         {
             using (LittleDwarfAgencyEntities1 context = new LittleDwarfAgencyEntities1())
             {
 
-                return View(context.Invoices.ToList());
+//                return View(context.Invoices.ToList());
+                return View(invoiceRepo.Invoices.ToList());
             }
         }
 
