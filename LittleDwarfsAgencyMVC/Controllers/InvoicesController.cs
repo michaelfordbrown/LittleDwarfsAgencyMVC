@@ -14,13 +14,18 @@ namespace LittleDwarfsAgencyMVC.Controllers
     {
 
         private IInvoiceRepository invoiceRepo;
+        public InvoicesController(IInvoiceRepository invoiceRepo)
+        {
+            this.invoiceRepo = invoiceRepo;
+        }
 
         public InvoicesController()
         {
             this.invoiceRepo = new EFInvoiceRepository();
         }
 
-        public ActionResult Index()
+//        public ActionResult Index()
+        public ViewResult Index()
         {
             using (LittleDwarfAgencyEntities1 context = new LittleDwarfAgencyEntities1())
             {
