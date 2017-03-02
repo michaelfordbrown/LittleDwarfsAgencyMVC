@@ -55,7 +55,7 @@ namespace ControllerTests
                 new Invoice {Id = 1, Invoice1 = 1001, AccountRef = "TestData", InvoiceDate = new DateTime(2017,03,01) },
                 new Invoice {Id = 2, Invoice1 = 1002, AccountRef = "TestData", InvoiceDate = new DateTime(2017,03,02) },
                 new Invoice {Id = 3, Invoice1 = 1003, AccountRef = "TestData", InvoiceDate = new DateTime(2017,03,03) },
-                new Invoice {Id = 4, Invoice1 = 1004, AccountRef = "TestData", InvoiceDate = new DateTime(2017,03,04) }
+                new Invoice {Id = 4, Invoice1 = 1005, AccountRef = "TestData", InvoiceDate = new DateTime(2017,03,04) }
             }.AsQueryable());
 
             InvoicesController controller = new InvoicesController(mock.Object);
