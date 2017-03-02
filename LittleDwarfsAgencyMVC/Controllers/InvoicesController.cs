@@ -19,10 +19,12 @@ namespace LittleDwarfsAgencyMVC.Controllers
             this.invoiceRepo = invoiceRepo;
         }
 
-        public InvoicesController()
+        /* Code below replaced by Ninject dependency injector
+         * public InvoicesController()
         {
             this.invoiceRepo = new EFInvoiceRepository();
         }
+        */
 
 //        public ActionResult Index()
         public ViewResult Index()
